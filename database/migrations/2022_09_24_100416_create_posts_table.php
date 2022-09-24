@@ -15,6 +15,13 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->text('body');
+            $table->string('image');
+            $table->foreignId('user_id')
+                ->constrained()//本来は（）の中に必要だが、上の行の_idの前までの値の複数形と一緒であれば記入する必要はない。
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();//ユーザーが削除された時に記事も削除するか否か
             $table->timestamps();
         });
     }
